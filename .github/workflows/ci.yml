@@ -1,3 +1,4 @@
+# github workflow for continuous integration (CI) of the Cricket Power Hitter project
 name: Cricket Power Hitter CI
 
 on:
