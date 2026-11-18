@@ -29,8 +29,15 @@ jobs:
       - name: Lint
         run: ruff check .
 
+      # - name: Run tests without a display
+      #   env:
+      #     SDL_VIDEODRIVER: dummy
+      #     SDL_AUDIODRIVER: dummy
+      #   run: pytest -v
+
       - name: Run tests without a display
         env:
+          PYTHONPATH: ${{ github.workspace }}
           SDL_VIDEODRIVER: dummy
           SDL_AUDIODRIVER: dummy
         run: pytest -v
