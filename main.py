@@ -57,7 +57,7 @@ def main():
                         direction = "right"
                     elif event.key == pygame.K_SPACE and now >= swing_until:
                         swing_until = now + 280
-                        timing = max(0.0, min(1.0, 1.0 - abs(now - (ball_started + 1650)) / 750))
+                        timing = max(0.0, min(1.0, 1.0 - abs(now - (ball_started + 1650)) / 1000))  # Increased timing window
                         try:
                             game.play_ball(timing, shot, direction, random.Random())
                         except (ValueError, RuntimeError):
@@ -112,6 +112,26 @@ def main():
     update_high_score()
     pygame.quit()
 
+def load_sounds():
+    sounds = {
+        "six": pygame.mixer.Sound("sounds/six.wav"),
+        "four": pygame.mixer.Sound("sounds/four.wav"),
+        "wicket": pygame.mixer.Sound("sounds/wicket.wav"),
+        "miss": pygame.mixer.Sound("sounds/miss.wav"),
+    }
+    return sounds
+
+sounds = load_sounds()
+
+# Play sounds based on the result
+if game.last_result == "SIX!":
+    sounds["six"].play()
+elif game.last_result == "FOUR!":
+    sounds["four"].play()
+elif "WICKET" in game.last_result:
+    sounds["wicket"].play()
+elif "MISS" in game.last_result:
+    sounds["miss"].play()
 
 if __name__ == "__main__":
     main()
