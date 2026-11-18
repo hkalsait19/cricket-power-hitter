@@ -112,6 +112,7 @@ def main():
     update_high_score()
     pygame.quit()
 
+## updated few controls here:
 def load_sounds():
     sounds = {
         "six": pygame.mixer.Sound("sounds/six.wav"),
