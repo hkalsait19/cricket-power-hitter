@@ -18,6 +18,16 @@ class Renderer:
         surface = font.render(str(message), True, color)
         self.screen.blit(surface, surface.get_rect(center=center))
 
+    def draw_timing_bar(self, progress):
+        """Draw a timing bar to indicate the ideal swing timing."""
+        bar_width = 300
+        bar_height = 20
+        x = (WIDTH - bar_width) // 2
+        y = HEIGHT - 50
+        pygame.draw.rect(self.screen, WHITE, (x, y, bar_width, bar_height), 2)
+        fill_width = int(bar_width * progress)
+        pygame.draw.rect(self.screen, GOLD, (x, y, fill_width, bar_height))
+
     def draw(self, game, phase, ball_x, ball_y, swing, celebration_time):
         self.screen.fill(BACKGROUND)
 
@@ -73,6 +83,9 @@ class Renderer:
         elif phase == "delivery":
             self.text("SPACE: SWING   1: DEFEND   2: GROUND   3: LOFT", self.small_font, WHITE, (WIDTH // 2, 590))
             self.text("← / → AIM", self.small_font, WHITE, (WIDTH // 2, 615))
+            elapsed = pygame.time.get_ticks() - game.ball_started
+            progress = min(1.0, elapsed / 1800.0)
+            self.draw_timing_bar(progress)
         elif phase == "result":
             if game.last_boundary in (4, 6):
                 label = "FOUR!" if game.last_boundary == 4 else "SIX!"

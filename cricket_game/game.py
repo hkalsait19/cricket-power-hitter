@@ -60,10 +60,10 @@ class CricketGame:
         # Poor contact can result in a miss or a wicket.
         if accuracy < 0.22:
             if roll < 0.48:
-                result, runs = "WICKET!", 0
+                result, runs = "WICKET! Poor timing.", 0
                 self.wickets += 1
             else:
-                result, runs = "DOT BALL", 0
+                result, runs = "MISS! Try better timing.", 0
         elif shot == "defensive":
             if accuracy > 0.78 and roll < 0.35:
                 result, runs = "1 RUN", 1
